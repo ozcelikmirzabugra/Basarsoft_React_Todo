@@ -1,23 +1,40 @@
 import React, { useState } from 'react';
-import './style.css'; 
 import Header from './Components/Header';
-import Body from './Components/Body';
+import Content from './Components/Content';
 import Footer from './Components/Footer';
 
-function App() {
+const App = () => {
+  const [tasks, setTasks] = useState([]);
   const [count, setCount] = useState(0);
 
-  const incrementCounter = () => {
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
     setCount(count + 1);
   };
 
+  const updateTask = (index, updatedTask) => {
+    const updatedTasks = tasks.map((task, i) => (i === index ? updatedTask : task));
+    setTasks(updatedTasks);
+  };
+
+  const deleteTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+    setCount(count - 1);
+  };
+
   return (
-    <div className="App">
+    <div>
       <Header count={count} />
-      <Body incrementCounter={incrementCounter} />
+      <Content
+        tasks={tasks}
+        addTask={addTask}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

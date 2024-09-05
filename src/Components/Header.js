@@ -1,11 +1,12 @@
 import React from 'react';
 
-function Header({ count }) {
+const Header = ({ count }) => {
   return (
-    <header className="header">
-      <p>Counter: {count}</p>
+    <header>
+      <h1>ToDo List</h1>
+      <p>Tasks Count: {count}</p>
     </header>
   );
-}
+};
 
 export default Header;
