@@ -12,8 +12,8 @@ function Body({ incrementCounter }) {
   };
 
   const handleButtonClick = () => {
-    addTask(); // Görev ekleme işlevi
-    incrementCounter(); // Sayaç artırma işlevi
+    addTask(); 
+    incrementCounter(); 
   };
 
   return (
