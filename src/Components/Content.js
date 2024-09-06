@@ -10,17 +10,17 @@ const Content = ({ tasks, addTask, updateTask, deleteTask }) => {
       return;
     }
     if (editIndex !== null) {
-      updateTask(editIndex, taskInput);
+      updateTask(editIndex, { ...tasks[editIndex], name: taskInput });
       setEditIndex(null);
     } else {
-      addTask(taskInput);
+      addTask({ name: taskInput });
     }
     setTaskInput('');
   };
 
   const handleEditClick = (index) => {
     setEditIndex(index);
-    setTaskInput(tasks[index]);
+    setTaskInput(tasks[index].name);
   };
 
   return (
@@ -36,13 +36,17 @@ const Content = ({ tasks, addTask, updateTask, deleteTask }) => {
       </button>
 
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            {task}
-            <button onClick={() => handleEditClick(index)}>Edit</button>
-            <button onClick={() => deleteTask(index)}>Delete</button>
-          </li>
-        ))}
+        {Array.isArray(tasks) && tasks.length > 0 ? (
+          tasks.map((task, index) => (
+            <li key={index}> {/* Uniqe key olarak id kullanıldı */}
+              {task.name}
+              <button onClick={() => handleEditClick(index)}>Edit</button>
+              <button onClick={() => deleteTask(index)}>Delete</button>
+            </li>
+          ))
+        ) : (
+          <li>No tasks available.</li>
+        )}
       </ul>
     </div>
   );
